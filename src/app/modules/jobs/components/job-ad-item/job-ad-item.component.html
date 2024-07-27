@@ -1,17 +1,14 @@
 <div class="job-ad-item-wrapper mat-elevation-z6">
   <div class="info">
     <div class="header">
-      <h2>Wizard</h2>
-      <div class="status">
-        <mat-icon class="icon" matPrefix aria-hidden="false" fontIcon="visibility"></mat-icon>
-        <h3>draft</h3>
-      </div>
+      <h2>{{jobAd?.title}}</h2><h3>({{jobAd?.status}})</h3>
     </div>
     <mat-divider></mat-divider>
-    <p>Conjures spells and potions</p>
+    <span class="description">{{jobAd?.description}}
+    </span>
     <mat-divider></mat-divider>
-    <mat-chip-set aria-label="Fish selection">
-      <mat-chip *ngFor="let skill of skills">{{skill}}</mat-chip>
+    <mat-chip-set class="skills">
+      <mat-chip *ngFor="let skill of jobAd?.skills">{{skill}}</mat-chip>
     </mat-chip-set>
   </div>
   <div class="actions">

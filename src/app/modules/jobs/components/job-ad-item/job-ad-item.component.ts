@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { JobAd } from 'src/app/core/models/job-ad.model';
 
 @Component({
   selector: 'app-job-ad-item',
@@ -6,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./job-ad-item.component.scss']
 })
 export class JobAdItemComponent {
-  skills: string[] = ["magic", "alchemy", "wizardry"];
+  @Input() jobAd?: JobAd;
 }

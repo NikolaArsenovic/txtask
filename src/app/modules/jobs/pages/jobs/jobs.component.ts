@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+
+import { JobService } from 'src/app/core/services/job.service';
 
 @Component({
   selector: 'app-jobs',
@@ -6,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./jobs.component.scss']
 })
 export class JobsComponent {
+  jobService = inject(JobService)
 
+  jobAds$ = this.jobService.getJobAdds();
 }
