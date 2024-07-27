@@ -46,11 +46,58 @@
       "skills": [
         "napping",
         "consulting",
-        "rest"
+        "rest",
+        "xvcxvc"
       ],
       "status": "published",
       "createdAt": "2024-03-25T08:45:00Z",
       "updatedAt": "2024-03-25T08:45:00Z"
+    },
+    {
+      "id": null,
+      "title": "12312312",
+      "description": "asdasdas ",
+      "status": "draft",
+      "skills": [
+        "asdasdd",
+        "asdasd asd dasd",
+        "123123"
+      ],
+      "createdAt": "2024-07-27T19:48:17.609Z",
+      "updatedAt": "2024-07-27T19:48:17.609Z"
+    },
+    {
+      "id": null,
+      "title": "asdasd",
+      "description": "sadas",
+      "status": "draft",
+      "skills": [
+        "asdasd"
+      ],
+      "createdAt": "2024-07-27T19:49:47.042Z",
+      "updatedAt": "2024-07-27T19:49:47.042Z"
+    },
+    {
+      "id": null,
+      "title": "asdas",
+      "description": "asdasd",
+      "status": "draft",
+      "skills": [
+        "asdasdas"
+      ],
+      "createdAt": "2024-07-27T19:51:25.911Z",
+      "updatedAt": "2024-07-27T19:51:25.911Z"
+    },
+    {
+      "id": null,
+      "title": "asdasd",
+      "description": "asdasd",
+      "status": "draft",
+      "skills": [
+        "asdasda"
+      ],
+      "createdAt": "2024-07-27T19:51:31.084Z",
+      "updatedAt": "2024-07-27T19:51:31.084Z"
     }
   ],
   "invoices": []
