@@ -3,4 +3,29 @@
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+
+  .links {
+    width: 960px;
+    margin-left:auto;
+    margin-right: auto;
+    display: flex ;
+
+    .active {
+      border-bottom: 4px solid black;
+    }
+
+    .link {
+      display: inline-block;
+      height: 80px;
+      padding: 0 20px 0 20px;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 500;
+
+      &:hover {
+        background: rgb(240, 240, 240, 0.6);
+      }
+    }
+  }
 }
