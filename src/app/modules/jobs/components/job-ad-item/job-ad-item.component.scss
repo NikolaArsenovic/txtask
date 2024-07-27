@@ -1,0 +1,47 @@
+.job-ad-item-wrapper {
+  display: flex;
+  flex-basis: 100%;
+  height: 150px;
+  border-radius: 5px;
+  margin-top:10px;
+  border: 1px solid black;
+
+  .info {
+    width: 100%;
+    padding:10px;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      h2 {
+        margin: 0 0 7px;
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        opacity: 0.5;
+        h3 {
+          margin: 0;
+          padding: 0 0 0 5px;
+        }
+      }
+    }
+  }
+
+  .actions {
+    width: 34px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .icon {
+      opacity: 0.7;
+      padding: 5px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}

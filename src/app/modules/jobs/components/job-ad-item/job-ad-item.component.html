@@ -1,0 +1,21 @@
+<div class="job-ad-item-wrapper mat-elevation-z6">
+  <div class="info">
+    <div class="header">
+      <h2>Wizard</h2>
+      <div class="status">
+        <mat-icon class="icon" matPrefix aria-hidden="false" fontIcon="visibility"></mat-icon>
+        <h3>draft</h3>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <p>Conjures spells and potions</p>
+    <mat-divider></mat-divider>
+    <mat-chip-set aria-label="Fish selection">
+      <mat-chip *ngFor="let skill of skills">{{skill}}</mat-chip>
+    </mat-chip-set>
+  </div>
+  <div class="actions">
+    <mat-icon class="icon" aria-hidden="false" aria-label="Edit" fontIcon="edit"></mat-icon>
+    <mat-icon class="icon" aria-hidden="false" aria-label="Delete" fontIcon="delete"></mat-icon>
+  </div>
+</div>

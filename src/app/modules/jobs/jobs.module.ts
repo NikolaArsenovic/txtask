@@ -5,6 +5,8 @@ import { JobAdItemComponent } from './components/job-ad-item/job-ad-item.compone
 import { JobSearchBarComponent } from './components/job-search-bar/job-search-bar.component';
 import { JobsComponent } from './pages/jobs/jobs.component';
 import { JobsRoutingModule } from './jobs-routing.module';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatDividerModule} from '@angular/material/divider';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
@@ -30,7 +32,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatDividerModule,
+    MatChipsModule
   ]
 })
 export class JobsModule { }

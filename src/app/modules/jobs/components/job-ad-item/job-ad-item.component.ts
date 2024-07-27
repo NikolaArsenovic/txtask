@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./job-ad-item.component.scss']
 })
 export class JobAdItemComponent {
-
+  skills: string[] = ["magic", "alchemy", "wizardry"];
 }
