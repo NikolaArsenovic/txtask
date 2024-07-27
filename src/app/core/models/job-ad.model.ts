@@ -21,6 +21,7 @@ export interface JobAd {
    */
   status: JobAdStatus;
 }
-
-export type JobAdStatus = 'draft' | 'published' | 'archived';
+// I hope this is ok that I slightly modified recommended type. Idea was to have array to populate select in search bar and to use same values for type (and to not repeat)
+export const jobStatuses = ['draft', 'published', 'archived'] as const;
+export type JobAdStatus = typeof jobStatuses[number];
 

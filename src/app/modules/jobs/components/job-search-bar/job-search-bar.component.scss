@@ -1,0 +1,17 @@
+.job-add-search-bar-wrapper {
+  .fields {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    display: flex;
+
+    .search-text {
+      flex-grow: 6;
+    }
+
+    .status {
+      flex-grow: 1;
+    }
+  }
+}

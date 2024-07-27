@@ -9,19 +9,25 @@
     margin-left:auto;
     margin-right: auto;
     display: flex ;
+    cursor: pointer;
 
     .active {
       border-bottom: 4px solid black;
     }
 
     .link {
-      display: inline-block;
       height: 80px;
-      padding: 0 20px 0 20px;
+      padding: 0 15px 0 15px;
       display: flex;
       align-items: center;
       font-size: 18px;
       font-weight: 500;
+
+      .text {
+        width: 70px;
+        display: inline-block;
+        text-align: center;
+      }
 
       &:hover {
         background: rgb(240, 240, 240, 0.6);

@@ -1,0 +1,16 @@
+<div [formGroup]="search" class="job-add-search-bar-wrapper">
+  <div class="fields mat-elevation-z6">
+    <mat-form-field class="search-text">
+      <mat-icon matPrefix aria-hidden="false" fontIcon="search"></mat-icon>
+      <input type="text" matInput formControlName="text" placeholder="search: Job title, keywords, or skills">
+    </mat-form-field>
+    <mat-form-field class="status">
+      <mat-icon matPrefix aria-hidden="false" fontIcon="visibility"></mat-icon>
+      <mat-select formControlName="status">
+          <ng-container *ngFor="let status of jobAdStatuses; trackBy: trackByFn">
+            <mat-option [value]="status.value">{{status.text}}</mat-option>
+          </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
