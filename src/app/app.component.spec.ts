@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { AppComponent } from "./app.component";
 import { CoreModule } from "./core/core.module";
-import { HttpClientModule } from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -17,10 +17,10 @@ describe('AppComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientModule, CoreModule, ],
-      declarations: [ AppComponent ],
-      providers: [{provide: ActivatedRoute, useValue: fakeActivatedRoute}, Router]
-    })
+    declarations: [AppComponent],
+    imports: [CoreModule],
+    providers: [{ provide: ActivatedRoute, useValue: fakeActivatedRoute }, Router, provideHttpClient(withInterceptorsFromDi())]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
