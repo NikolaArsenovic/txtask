@@ -1,4 +1,8 @@
 .job-add-search-bar-wrapper {
+  position: sticky;
+  top: 105px;
+  left: 0;
+
   .fields {
     background-color: rgb(245, 245, 245);
     padding: 10px;

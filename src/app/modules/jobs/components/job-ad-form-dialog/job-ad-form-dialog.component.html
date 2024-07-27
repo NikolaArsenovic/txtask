@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>{{data.title}}</h2>
+<mat-dialog-content>
+  <form [formGroup]="jobAdForm" class="form-wrapper">
+    <mat-form-field class="field">
+      <mat-label>Title:</mat-label>
+      <input type="text" matInput formControlName="title" placeholder="Ex. Director of Fun">
+      <mat-error *ngIf="jobAdForm.get('title')?.hasError('required')">Title is <strong>required</strong></mat-error>
+    </mat-form-field>
+    <mat-form-field class="field">
+      <mat-label>Description:</mat-label>
+      <textarea type="text" matInput formControlName="description" placeholder="Ex. How would you have fun!"></textarea>
+      <mat-error *ngIf="jobAdForm.get('description')?.hasError('required')">Description is <strong>required</strong></mat-error>
+    </mat-form-field>
+    <mat-form-field *ngIf="data.jobAd">
+      <mat-select formControlName="status">
+          <ng-container *ngFor="let status of jobAdStatuses; trackBy: trackByFn">
+            <mat-option [value]="status.value">{{status.text}}</mat-option>
+          </ng-container>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-chip-list">
+      <mat-label>Skills</mat-label>
+      <mat-chip-grid #chipGrid formControlName="skills" aria-label="Enter fruits">
+        @for (skill of skillsValue; track skill) {
+          <mat-chip-row
+            (removed)="remove(skill)"
+            [editable]="true"
+            (edited)="edit(skill, $event)"
+          >
+            {{skill}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+        }
+        <input
+          placeholder="Add skill..."
+          [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)"
+        />
+      </mat-chip-grid>
+      <mat-error *ngIf="jobAdForm.get('skills')?.hasError('required')">You have to add at least one <strong>skill</strong></mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="action-buttons">
+  <button mat-button (click)="onCancel()">No Thanks</button>
+  <button mat-button (click)="onSubmit()" [disabled]="jobAdForm.invalid || saveButtonDisabled" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

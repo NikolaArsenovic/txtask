@@ -1,12 +1,19 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { Component } from '@angular/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { jobStatuses } from 'src/app/core/models/job-ad.model';
 
 @Component({
   selector: 'app-job-search-bar',
   templateUrl: './job-search-bar.component.html',
-  styleUrls: ['./job-search-bar.component.scss']
+  styleUrls: ['./job-search-bar.component.scss'],
+  providers: [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { subscriptSizing: 'dynamic' },
+    },
+   ],
 })
 export class JobSearchBarComponent {
 

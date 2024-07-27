@@ -1,0 +1,16 @@
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 480px;
+
+  .field {
+    padding-bottom: 10px;
+    width: 100%;
+  }
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: end;
+}

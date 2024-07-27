@@ -1,5 +1,14 @@
 .job-ads-wrapper {
-  .job-ad-list {
-    padding-top: 5px;
+  .add-button-wrapper {
+    display: flex;
+    justify-content: center;
+    height: 55px;
+    align-items: center;
+    position: sticky;
+    top: 182px;
+
+    .add-button {
+      background-color: white;
+    }
   }
 }

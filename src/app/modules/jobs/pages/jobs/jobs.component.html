@@ -1,5 +1,11 @@
 <div class="job-ads-wrapper">
   <app-job-search-bar></app-job-search-bar>
+  <div class="add-button-wrapper">
+    <button type="button" (click)="openDialog()" class="add-button" mat-raised-button>
+      <mat-icon>add</mat-icon>
+      Job Ad
+    </button>
+  </div>
   <div class="job-ad-list">
     @for (jobAd of (jobAds$ | async); track jobAd) {
       <app-job-ad-item [jobAd]="jobAd"></app-job-ad-item>
