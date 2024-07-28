@@ -23,9 +23,13 @@ export class JobAdsStore extends ComponentStore<JobAdsState> {
   private layoutStore: LayoutStore = inject(LayoutStore);
   private jobAds$: Observable<JobAd[]> = this.select((state) => this.filterAds(state));
   private jobAdDtos$: Observable<JobAdDto[]> = this.select((state) => state.jobAds);
+  private searchText$: Observable<string | null> = this.select((state) => state.searchText);
+  private searchStatus$: Observable<string | null> = this.select((state) => state.searchStatus);
 
   vm$ = this.select({
-    jobAds: this.jobAds$
+    jobAds: this.jobAds$,
+    searchText: this.searchText$,
+    searchStatus: this.searchStatus$
   });
 
   constructor(){
@@ -49,7 +53,6 @@ export class JobAdsStore extends ComponentStore<JobAdsState> {
         x.skills.map(x => x.toLowerCase()).includes((state.searchText as string).toLowerCase())
       );
     }
-    console.log(ads);
     return ads;
   }
 

@@ -2,9 +2,12 @@
   <div class="static-part">
     <app-job-search-bar></app-job-search-bar>
   </div>
-  <div class="job-ad-list">
+  <div class="job-ad-list" *ngIf="vm.jobAds.length > 0">
     @for (jobAd of vm.jobAds; track jobAd.id) {
       <app-job-ad-item (delete)="onDelete($event)" [jobAd]="jobAd"></app-job-ad-item>
     }
+  </div>
+  <div class="search-empty" *ngIf="vm.jobAds.length === 0">
+    <h3>The search <strong *ngIf="vm.searchText">{{vm.searchText}}</strong> <span *ngIf="vm.searchStatus"> with status: <strong>{{vm.searchStatus}}</strong></span> did not match any jobs.</h3>
   </div>
 </div>
