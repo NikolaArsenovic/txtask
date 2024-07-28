@@ -1,8 +1,10 @@
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { JobAdStatus, jobStatuses } from 'src/app/core/models/job-ad.model';
 
-import { Component } from '@angular/core';
+import { JobAdsStore } from '../../job-ads.store';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { jobStatuses } from 'src/app/core/models/job-ad.model';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-job-search-bar',
@@ -15,7 +17,8 @@ import { jobStatuses } from 'src/app/core/models/job-ad.model';
     },
    ],
 })
-export class JobSearchBarComponent {
+export class JobSearchBarComponent implements OnInit{
+  jobAdsStore = inject(JobAdsStore);
 
   get jobAdStatuses(): { value: string, text: string }[] {
     const selectStatuses = [{
@@ -31,10 +34,17 @@ export class JobSearchBarComponent {
     return selectStatuses;
   }
 
-  search = new FormGroup({
+
+  searchForm = new FormGroup({
     text: new FormControl(''),
     status: new FormControl(this.jobAdStatuses[0].value),
   });
+
+  ngOnInit(): void {
+    this.searchForm.valueChanges.pipe(debounceTime(500)).subscribe((value) => {
+      this.jobAdsStore.updateSearchTerms({text: value.text as string, status: value.status as JobAdStatus})
+    })
+  }
 
   trackByFn(index: number): number{
     return index;

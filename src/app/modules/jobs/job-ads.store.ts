@@ -1,16 +1,18 @@
 import { Injectable, inject } from "@angular/core";
+import { JobAd, JobAdStatus } from "src/app/core/models/job-ad.model";
 import { Observable, exhaustMap, tap } from "rxjs";
 
 import { ComponentStore } from "@ngrx/component-store"
 import { HttpErrorResponse } from "@angular/common/http";
-import { JobAd } from "src/app/core/models/job-ad.model";
 import { JobAdDto } from "src/app/core/models/job-add-dto.model";
 import { JobService } from "src/app/core/services/job.service";
 import { LayoutStore } from "src/app/core/components/layout/layout.store";
 import { tapResponse } from '@ngrx/operators';
 
 export interface JobAdsState {
-  jobAds: JobAdDto[]
+  jobAds: JobAdDto[],
+  searchText: string | null,
+  searchStatus: string | null
 }
 
 @Injectable({
@@ -19,7 +21,7 @@ export interface JobAdsState {
 export class JobAdsStore extends ComponentStore<JobAdsState> {
   private jobsService: JobService = inject(JobService);
   private layoutStore: LayoutStore = inject(LayoutStore);
-  private jobAds$: Observable<JobAd[]> = this.select((state) => state.jobAds as JobAd[]);
+  private jobAds$: Observable<JobAd[]> = this.select((state) => this.filterAds(state));
   private jobAdDtos$: Observable<JobAdDto[]> = this.select((state) => state.jobAds);
 
   vm$ = this.select({
@@ -28,8 +30,27 @@ export class JobAdsStore extends ComponentStore<JobAdsState> {
 
   constructor(){
     super({
-      jobAds: []
+      jobAds: [],
+      searchText: '',
+      searchStatus: ''
     })
+  }
+
+  filterAds(state: JobAdsState): JobAd[] {
+    let ads: JobAd[] = state.jobAds as JobAd[];
+    if(state.searchStatus) {
+      ads = ads.filter(x => x.status === state.searchStatus);
+    }
+
+    if(state.searchText) {
+      ads = ads.filter(x =>
+        x.description.toLowerCase().includes((state.searchText as string).toLowerCase()) ||
+        x.title.toLowerCase().includes((state.searchText as string).toLowerCase()) ||
+        x.skills.map(x => x.toLowerCase()).includes((state.searchText as string).toLowerCase())
+      );
+    }
+    console.log(ads);
+    return ads;
   }
 
   jobAdDtoById$(id: number | undefined): Observable<JobAdDto | undefined> {
@@ -59,8 +80,22 @@ export class JobAdsStore extends ComponentStore<JobAdsState> {
     jobAds: [...state.jobAds.map(x => (x.id === ad.id ? ad : x))]
   }));
 
+  updateSearchState = this.updater((state, search: {text: string | null, status: JobAdStatus | null}) => ({
+    ...state,
+    searchStatus: search.status,
+    searchText: search.text
+  }));
+
 
   //effects
+  updateSearchTerms = this.effect((search$: Observable<{text: string | null, status: JobAdStatus | null}>) => {
+    return search$.pipe(
+      tap((search: {text: string | null, status: JobAdStatus | null}) => {
+        this.updateSearchState(search);
+      })
+    );
+  });
+
   createJobAd = this.effect((jobAd$: Observable<JobAd>) => {
     return jobAd$.pipe(tap(()=>  {
       this.layoutStore.setIsLoading(true);

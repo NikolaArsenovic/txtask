@@ -3,7 +3,7 @@
     <app-job-search-bar></app-job-search-bar>
   </div>
   <div class="job-ad-list">
-    @for (jobAd of vm.jobAds; track jobAd) {
+    @for (jobAd of vm.jobAds; track jobAd.id) {
       <app-job-ad-item (delete)="onDelete($event)" [jobAd]="jobAd"></app-job-ad-item>
     }
   </div>
