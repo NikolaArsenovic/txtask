@@ -7,6 +7,7 @@ import { JobAdDialogData } from 'src/app/core/models/job-ad-dialog-data.model';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { JobService } from 'src/app/core/services/job.service';
 import { JobAd } from 'src/app/core/models/job-ad.model';
+import { JobAdsStore } from '../../job-ads.store';
 
 @Component({
   selector: 'app-job-ad-form-dialog',
@@ -15,6 +16,7 @@ import { JobAd } from 'src/app/core/models/job-ad.model';
 })
 export class JobAdFormDialogComponent {
   jobService: JobService = inject(JobService);
+  jobAdsStore: JobAdsStore = inject(JobAdsStore);
 
     get jobAdStatuses(): { value: string, text: string }[] {
       const selectStatuses = [];
@@ -69,14 +71,11 @@ export class JobAdFormDialogComponent {
   onSubmit() {
     this.saveButtonDisabled = true;
     if(this.data.jobAd) {
-      this.jobService.updateJobAd(this.jobAdForm.value as JobAd).subscribe(() => {
-        this.dialogRef.close();
-      });
+      this.jobAdsStore.editJobAd(this.jobAdForm.value as JobAd);
     } else {
-      this.jobService.saveJobAd(this.jobAdForm.value as JobAd).subscribe(() => {
-        this.dialogRef.close();
-      });
+      this.jobAdsStore.createJobAd(this.jobAdForm.value as JobAd);
     }
+    this.dialogRef.close();
   }
 
   add(event: MatChipInputEvent): void {

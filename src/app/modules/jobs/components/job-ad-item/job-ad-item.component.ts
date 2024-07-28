@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 
 import { JobAd } from 'src/app/core/models/job-ad.model';
 import { JobAdDialogData } from 'src/app/core/models/job-ad-dialog-data.model';
@@ -16,11 +16,10 @@ export class JobAdItemComponent {
   dialog: MatDialog = inject(MatDialog);
 
   @Input() jobAd?: JobAd;
+  @Output() delete = new EventEmitter<number>();
 
-  delete(): void {
-    if(this.jobAd && this.jobAd.id) {
-      this.jobService.deleteJobAd(this.jobAd.id);
-    }
+  onDelete(): void {
+    this.delete.emit(this.jobAd?.id);
   }
 
   edit(): void {

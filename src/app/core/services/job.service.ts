@@ -25,8 +25,8 @@ export class JobService {
     return this.http.post<JobAdDto>('jobs', jobAdDto);
   }
 
-  deleteJobAd(id: number) {
-    this.http.delete('jobs/' + id).subscribe(value => console.log(value));
+  deleteJobAd(id: number): Observable<object> {
+    return this.http.delete('jobs/' + id);
   }
 
   updateJobAd(jobAd: JobAd): Observable<JobAdDto> {

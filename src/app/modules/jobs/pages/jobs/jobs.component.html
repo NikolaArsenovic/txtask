@@ -1,10 +1,10 @@
-<div class="job-ads-wrapper">
+<div class="job-ads-wrapper" *ngIf="vm$ | async as vm">
   <div class="static-part">
     <app-job-search-bar></app-job-search-bar>
   </div>
   <div class="job-ad-list">
-    @for (jobAd of (jobAds$ | async); track jobAd) {
-      <app-job-ad-item [jobAd]="jobAd"></app-job-ad-item>
+    @for (jobAd of vm.jobAds; track jobAd) {
+      <app-job-ad-item (delete)="onDelete($event)" [jobAd]="jobAd"></app-job-ad-item>
     }
   </div>
 </div>

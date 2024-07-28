@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { UtilService } from '../../services/util.service';
+import { LayoutStore } from './layout.store';
 
 @Component({
   selector: 'app-layout',
@@ -9,5 +9,6 @@ import { UtilService } from '../../services/util.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayoutComponent {
-  util = inject(UtilService);
+  layoutStore = inject(LayoutStore);
+  vm$ = this.layoutStore.vm$;
 }
