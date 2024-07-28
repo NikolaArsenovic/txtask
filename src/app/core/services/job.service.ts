@@ -21,6 +21,7 @@ export class JobService {
       createdAt: new Date(),
       updatedAt: new Date()
     }
+    delete jobAdDto.id; // json server wont ignore null values for id
     return this.http.post<JobAdDto>('jobs', jobAdDto);
   }
 

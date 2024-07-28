@@ -122,6 +122,10 @@ export class JobAdFormDialogComponent {
       if(skills) {
         const index = skills.indexOf(skill);
         if (index >= 0) {
+          if(skills.includes(skill)){
+            this.remove(skill);
+            return;
+          }
           skills[index] = value;
 
           this.skills.setValue(skills);

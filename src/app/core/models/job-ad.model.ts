@@ -1,5 +1,5 @@
 export interface JobAd {
-  id: number;
+  id?: number;
   /**
    * Title of a job ad. Required property.
    * It's not allowed to have two job ads with the same title.

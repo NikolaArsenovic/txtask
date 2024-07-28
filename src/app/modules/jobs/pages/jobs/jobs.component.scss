@@ -5,21 +5,10 @@
     right: 0;
     z-index: 99;
     background-color: white;
-    padding: 15px 15px 0 15px;
-
-    .add-button-wrapper {
-      display: flex;
-      justify-content: center;
-      height: 55px;
-      align-items: center;
-
-      .add-button {
-        background-color: white;
-      }
-    }
+    padding: 15px;
   }
 
   .job-ad-list {
-    padding: 0 15px;
+    padding: 0 15px 15px 15px;
   }
 }

@@ -18,7 +18,7 @@ export class JobAdItemComponent {
   @Input() jobAd?: JobAd;
 
   delete(): void {
-    if(this.jobAd) {
+    if(this.jobAd && this.jobAd.id) {
       this.jobService.deleteJobAd(this.jobAd.id);
     }
   }

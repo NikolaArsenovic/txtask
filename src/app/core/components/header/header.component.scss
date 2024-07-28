@@ -8,34 +8,49 @@
   z-index: 100;
   background-color: white;
 
-  .links {
+  .header-items {
     width: 960px;
     margin-left:auto;
     margin-right: auto;
-    display: flex ;
+    display: flex;
+    justify-content: space-between;
 
-    .active {
-      border-bottom: 4px solid black;
+    .add-button-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .add-button {
+        background-color: white;
+      }
     }
 
-    .link {
-      height: 80px;
-      padding: 0 15px 0 15px;
+    .links {
       display: flex;
-      align-items: center;
-      font-size: 18px;
-      font-weight: 500;
-      cursor: pointer;
-
-      .text {
-        width: 70px;
-        display: inline-block;
-        text-align: center;
+      .active {
+        border-bottom: 4px solid black;
       }
 
-      &:hover {
-        background: rgb(240, 240, 240, 0.6);
+      .link {
+        height: 80px;
+        padding: 0 15px 0 15px;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        font-weight: 500;
+        cursor: pointer;
+
+        .text {
+          width: 70px;
+          display: inline-block;
+          text-align: center;
+        }
+
+        &:hover {
+          background: rgb(240, 240, 240, 0.6);
+        }
       }
     }
   }
+
 }

@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+
+import { JobAdDialogData } from '../../models/job-ad-dialog-data.model';
+import { JobAdFormDialogComponent } from 'src/app/modules/jobs/components/job-ad-form-dialog/job-ad-form-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-header',
@@ -7,4 +11,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
+  dialog = inject(MatDialog);
+
+  openDialog() {
+    const data: JobAdDialogData = {
+      title: 'Create Job Ad',
+    };
+
+    this.dialog.open(JobAdFormDialogComponent, {
+      data
+    });
+  }
 }
