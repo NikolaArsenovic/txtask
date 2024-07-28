@@ -8,8 +8,16 @@
     border: 1px solid black;
     display: flex;
 
+    @media (max-width: 768px) {
+      flex-direction: column;
+     }
+
     .search-text {
       flex-grow: 6;
+
+      @media (max-width: 768px) {
+        flex-grow: 1;
+       }
     }
 
     .status {
