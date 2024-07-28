@@ -15,18 +15,13 @@ export class JobService {
     return this.http.get<JobAdDto[]>('jobs');
   }
 
-  saveJobAd(jobAd: JobAd): Observable<JobAdDto> {
-    const jobAdDto:JobAdDto = {
-      ...jobAd,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }
+  saveJobAd(jobAdDto: JobAdDto): Observable<JobAdDto> {
     delete jobAdDto.id; // json server wont ignore null values for id
     return this.http.post<JobAdDto>('jobs', jobAdDto);
   }
 
-  deleteJobAd(id: number): Observable<object> {
-    return this.http.delete('jobs/' + id);
+  deleteJobAd(id: number): Observable<JobAdDto> {
+    return this.http.delete<JobAdDto>('jobs/' + id);
   }
 
   updateJobAd(jobAd: JobAd): Observable<JobAdDto> {

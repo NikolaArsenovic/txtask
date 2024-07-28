@@ -21,14 +21,6 @@ describe('UtilService', () => {
     });
   });
 
-  it('setSpinnerLoaderInProgress should update spinnerLoaderInProgress$', (done) => {
-    service.setSpinnerLoaderInProgress(true);
-    service.spinnerLoaderInProgress$.subscribe(value => {
-      expect(value).toBeTrue();
-      done();
-    });
-  });
-
   it('errorActive$ should emit null initially', (done) => {
     service.errorActive$.subscribe(error => {
       expect(error).toBeNull();

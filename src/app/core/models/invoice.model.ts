@@ -1,6 +1,6 @@
 export interface Invoice {
-  id: number;
+  id?: number;
   jobAdId: number;
-  amount: unknown; // up to you
+  amount: number; // up to you
   dueDate: Date;
 }

@@ -1,1 +1,8 @@
-<p>invoices works!</p>
+<div class="invoice-wrapper" *ngIf="vm$ | async as vm">
+  @for (invoice of vm.invoices; track invoice.id) {
+    <app-invoice-item [invoice]="invoice"></app-invoice-item>
+  }
+  <div class="no-invoices" *ngIf="vm.invoices.length === 0">
+    <h3>There is no invoices yet created.</h3>
+  </div>
+</div>

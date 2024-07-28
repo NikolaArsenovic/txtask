@@ -1,0 +1,14 @@
+<div class="invoice-item-wrapper mat-elevation-z6" *ngIf="invoice">
+  <div class="item">
+    <h2>Invoice</h2>
+    <h3>{{invoice.id}}</h3>
+  </div>
+  <div class="item">
+    <h2>Amount</h2>
+    <h3>{{invoice.amount| currency}}</h3>
+  </div>
+  <div class="item">
+    <h2>Due Date</h2>
+    <h3>{{invoice.dueDate | date }}</h3>
+  </div>
+</div>

@@ -1,12 +1,14 @@
 import { Injectable, inject } from "@angular/core";
 import { JobAd, JobAdStatus } from "src/app/core/models/job-ad.model";
-import { Observable, exhaustMap, tap } from "rxjs";
+import { Observable, exhaustMap, take, tap } from "rxjs";
 
 import { ComponentStore } from "@ngrx/component-store"
 import { HttpErrorResponse } from "@angular/common/http";
+import { InvoiceStore } from "../invoices/invoices.store";
 import { JobAdDto } from "src/app/core/models/job-add-dto.model";
 import { JobService } from "src/app/core/services/job.service";
 import { LayoutStore } from "src/app/core/components/layout/layout.store";
+import { UtilService } from "src/app/core/services/util.service";
 import { tapResponse } from '@ngrx/operators';
 
 export interface JobAdsState {
@@ -21,6 +23,8 @@ export interface JobAdsState {
 export class JobAdsStore extends ComponentStore<JobAdsState> {
   private jobsService: JobService = inject(JobService);
   private layoutStore: LayoutStore = inject(LayoutStore);
+  private invoiceStore: InvoiceStore = inject(InvoiceStore);
+  private util = inject(UtilService);
   private jobAds$: Observable<JobAd[]> = this.select((state) => this.filterAds(state));
   private jobAdDtos$: Observable<JobAdDto[]> = this.select((state) => state.jobAds);
   private searchText$: Observable<string | null> = this.select((state) => state.searchText);
@@ -104,13 +108,18 @@ export class JobAdsStore extends ComponentStore<JobAdsState> {
       this.layoutStore.setIsLoading(true);
     }),
     exhaustMap((jobAd: JobAd) => {
-      return this.jobsService.saveJobAd(jobAd).pipe(
+      const jobAdDto:JobAdDto = {
+        ...jobAd,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      };
+      return this.jobsService.saveJobAd(jobAdDto).pipe(
         tapResponse(
           (ad: JobAdDto) => {
             this.addJobAd(ad);
             this.layoutStore.setIsLoading(false);
           },
-          (err: HttpErrorResponse) => console.log(err))
+          (err: HttpErrorResponse) => this.util.setError(err))
       );
     })
   );
@@ -127,7 +136,7 @@ export class JobAdsStore extends ComponentStore<JobAdsState> {
             this.setJobAds(ads);
             this.layoutStore.setIsLoading(false);
           },
-          (err: HttpErrorResponse) => console.log(err))
+          (err: HttpErrorResponse) => this.util.setError(err))
       );
     })
   );
@@ -138,10 +147,13 @@ export class JobAdsStore extends ComponentStore<JobAdsState> {
       exhaustMap((id: number) => {
       return this.jobsService.deleteJobAd(id).pipe(
         tapResponse(
-          () => {
+          (jobAd: JobAdDto) => {
             this.removeJobAd(id);
+            if(jobAd.status === 'published' || jobAd.status === 'archived') {
+              this.invoiceStore.deleteInvoice(id);
+            }
           },
-          (err: HttpErrorResponse) => console.log(err))
+          (err: HttpErrorResponse) => this.util.setError(err))
       );
     })
   );
@@ -152,18 +164,25 @@ export class JobAdsStore extends ComponentStore<JobAdsState> {
       this.layoutStore.setIsLoading(true);
     }),
     exhaustMap((jobAd: JobAd) => {
-      const jobToUpdate = {
-        ...jobAd,
-        updatedAt: new Date()
-      }
-      return this.jobsService.updateJobAd(jobToUpdate).pipe(
-        tapResponse(
-          (ad: JobAdDto) => {
-            this.updateJobAd(ad);
-            this.layoutStore.setIsLoading(false);
-          },
-          (err: HttpErrorResponse) => console.log(err))
-      );
+      return this.jobAdDtoById$(jobAd.id).pipe(
+        take(1),
+        exhaustMap((oldJobAd: JobAdDto | undefined) => {
+          const jobToUpdate = {
+            ...jobAd,
+            updatedAt: new Date(),
+          }
+          return this.jobsService.updateJobAd(jobToUpdate).pipe(
+            tapResponse(
+              (ad: JobAdDto) => {
+                this.updateJobAd(ad);
+                if(oldJobAd && oldJobAd.status === 'draft' && jobToUpdate.status === 'published') {
+                  this.invoiceStore.createInvoice(ad);
+                }
+                this.layoutStore.setIsLoading(false);
+              },
+              (err: HttpErrorResponse) => this.util.setError(err))
+          );
+      }))
     })
   );
   });

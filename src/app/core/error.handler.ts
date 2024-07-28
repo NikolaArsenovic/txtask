@@ -10,7 +10,6 @@ export class CustomErrorHandler implements ErrorHandler {
   handleError(error: HttpErrorResponse) {
     console.log(error)
 		this.ngZone.runTask( () => {
-      this.util.setSpinnerLoaderInProgress(false);
       this.util.setError(error);
 		} );
   }

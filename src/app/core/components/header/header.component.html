@@ -8,7 +8,7 @@
         <span class="text">Invoices</span>
       </div>
     </div>
-    <div class="add-button-wrapper">
+    <div class="add-button-wrapper" *ngIf="isJobsRouteActive$ | async">
       <button type="button" (click)="openDialog()" class="add-button" mat-raised-button>
         <mat-icon>add</mat-icon>
         Job Ad

@@ -18,10 +18,6 @@ export class UtilService {
     return this.error.asObservable()
   }
 
-  setSpinnerLoaderInProgress(value: boolean): void {
-    this.spinnerLoaderInProgress.next(value);
-  }
-
   setError(error: HttpErrorResponse | null): void {
     this.error.next(error);
   }
