@@ -41,7 +41,7 @@ describe('InvoiceItemComponent', () => {
 
     expect(idElement.textContent).toContain(mockInvoice.id?.toString());
     expect(amountElement.textContent).toContain('$1,000.00');
-    expect(dueDateElement.textContent).toContain('Dec 31, 2023');
+    expect(dueDateElement.textContent).toContain('December 31, 2023');
   });
 
   it('should not display invoice details when input is not provided', () => {
