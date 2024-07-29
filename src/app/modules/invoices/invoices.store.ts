@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { Observable, exhaustMap, take, tap } from "rxjs";
+import { Observable, exhaustMap, filter, take, tap } from "rxjs";
 
 import { ComponentStore } from "@ngrx/component-store"
 import { HttpErrorResponse } from "@angular/common/http";
@@ -102,6 +102,12 @@ export class InvoiceStore extends ComponentStore<InvoicesState> {
       exhaustMap((jobAdId: number) => {
       return this.getInvoiceByAdId$(jobAdId as number).pipe(
         take(1),
+        filter(invoice => {
+          // as i understand task, invocie should be created once it is published,
+          // but there is already published invoices in db.json where i didnt put triggers itentionally because they already exists
+          // this filter eliminates errors due to special case above
+          return invoice !== undefined;
+        }),
         exhaustMap((oldInvoice: InvoiceDto | undefined) => {
           return this.invoiceService.deleteInvoice(oldInvoice?.id as number).pipe(
             tapResponse(
