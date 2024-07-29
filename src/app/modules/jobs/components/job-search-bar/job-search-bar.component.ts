@@ -20,7 +20,7 @@ import { debounceTime } from 'rxjs';
 export class JobSearchBarComponent implements OnInit{
   jobAdsStore = inject(JobAdsStore);
 
-  get jobAdStatuses(): { value: string, text: string }[] {
+  get jobAdSelectStatuses(): { value: string, text: string }[] {
     const selectStatuses = [{
       text: 'All Statuses',
       value: ''
@@ -37,7 +37,7 @@ export class JobSearchBarComponent implements OnInit{
 
   searchForm = new FormGroup({
     text: new FormControl(''),
-    status: new FormControl(this.jobAdStatuses[0].value),
+    status: new FormControl(this.jobAdSelectStatuses[0].value),
   });
 
   ngOnInit(): void {

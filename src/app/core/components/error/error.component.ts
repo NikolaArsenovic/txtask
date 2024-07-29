@@ -10,7 +10,7 @@ import { UtilService } from '../../services/util.service';
 export class ErrorComponent {
   util = inject(UtilService);
 
-  close() {
+  close(): void {
     this.util.setError(null);
   }
 }

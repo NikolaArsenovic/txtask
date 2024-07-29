@@ -7,7 +7,7 @@
     <mat-form-field class="status">
       <mat-icon matPrefix aria-hidden="false" fontIcon="visibility"></mat-icon>
       <mat-select formControlName="status">
-          <ng-container *ngFor="let status of jobAdStatuses; trackBy: trackByFn">
+          <ng-container *ngFor="let status of jobAdSelectStatuses; trackBy: trackByFn">
             <mat-option [value]="status.value">{{status.text}}</mat-option>
           </ng-container>
       </mat-select>

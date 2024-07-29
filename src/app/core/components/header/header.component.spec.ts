@@ -1,6 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { ErrorComponent } from '../error/error.component';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -15,7 +16,7 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
+      declarations: [ HeaderComponent, ErrorComponent ],
       providers: [{provide: ActivatedRoute, useValue: fakeActivatedRoute}, Router]
     })
     .compileComponents();

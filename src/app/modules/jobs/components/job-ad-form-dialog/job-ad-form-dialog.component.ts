@@ -18,7 +18,7 @@ export class JobAdFormDialogComponent {
   jobService: JobService = inject(JobService);
   jobAdsStore: JobAdsStore = inject(JobAdsStore);
 
-    get jobAdStatuses(): { value: string, text: string }[] {
+    get jobAdSelectStatuses(): { value: string, text: string }[] {
       const selectStatuses = [];
       if(this.data.jobAd) {
 
@@ -44,11 +44,11 @@ export class JobAdFormDialogComponent {
   saveButtonDisabled = false;
 
   jobAdForm = new FormGroup({
-    id: new FormControl(this.data.jobAd?.id),
-    title: new FormControl(this.data.jobAd ? this.data.jobAd.title : '', [Validators.required]),
-    description: new FormControl(this.data.jobAd ? this.data.jobAd.description : '', [Validators.required]),
-    status: new FormControl(this.data.jobAd ? this.data.jobAd.status : 'draft'),
-    skills: new FormControl(this.data.jobAd ? this.data.jobAd.skills : [], [Validators.required]),
+    id: new FormControl(this.data?.jobAd?.id ?? null),
+    title: new FormControl(this.data?.jobAd?.title ?? '', [Validators.required]),
+    description: new FormControl(this.data?.jobAd?.description ?? '', [Validators.required]),
+    status: new FormControl(this.data?.jobAd?.status ?? 'draft'),
+    skills: new FormControl(this.data?.jobAd?.skills ?? [], [Validators.required]),
   });
 
   get skills() {
