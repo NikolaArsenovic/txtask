@@ -64,19 +64,6 @@
       "status": "draft",
       "createdAt": "2024-03-25T12:00:00Z",
       "updatedAt": "2024-03-25T12:00:00Z"
-    },
-    {
-      "id": "4eab",
-      "title": "asda",
-      "description": "sdasd",
-      "status": "draft",
-      "skills": [
-        "asdasdasddasdas asdasd",
-        "asdasd",
-        "sdasdas"
-      ],
-      "createdAt": "2024-07-29T12:08:26.588Z",
-      "updatedAt": "2024-07-29T12:09:23.893Z"
     }
   ],
   "invoices": []

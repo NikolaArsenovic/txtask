@@ -10,11 +10,11 @@ describe('InvoicesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      declarations: [ InvoicesComponent ],
       providers: [
         provideHttpClient(),
-        provideHttpClientTesting()
-     ],
-      declarations: [ InvoicesComponent ]
+        provideHttpClientTesting(),
+      ]
     })
     .compileComponents();
 

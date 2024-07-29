@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { JobAdsState, JobAdsStore } from '../../job-ads.store';
-import { Observable, of } from 'rxjs';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JobAd } from 'src/app/core/models/job-ad.model';
 import { JobAdDto } from 'src/app/core/models/job-add-dto.model';
 import { JobAdFormDialogComponent } from '../../components/job-ad-form-dialog/job-ad-form-dialog.component';
 import { JobAdItemComponent } from '../../components/job-ad-item/job-ad-item.component';
+import { JobAdsStore } from '../../job-ads.store';
 import { JobSearchBarComponent } from '../../components/job-search-bar/job-search-bar.component';
 import { JobsComponent } from './jobs.component';
 import { MatChipsModule } from '@angular/material/chips';
@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { of } from 'rxjs';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
