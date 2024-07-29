@@ -11,8 +11,8 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./jobs.component.scss'],
 })
 export class JobsComponent implements OnInit {
-  jobAdsStore = inject(JobAdsStore);
-  dialog = inject(MatDialog);
+  private jobAdsStore = inject(JobAdsStore);
+  private dialog = inject(MatDialog);
   vm$ = this.jobAdsStore.vm$;
 
   ngOnInit(): void {
@@ -25,7 +25,7 @@ export class JobsComponent implements OnInit {
     }
   }
 
-  openDialog() {
+  openDialog(): void {
     const data: JobAdDialogData = {
       title: 'Create Job Ad',
     };

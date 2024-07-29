@@ -1,6 +1,6 @@
 import { DIALOG_DATA } from '@angular/cdk/dialog';
 import { Component, inject, Inject, Optional } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef } from '@angular/material/dialog';
 import { JobAdDialogData } from 'src/app/core/models/job-ad-dialog-data.model';
@@ -51,7 +51,7 @@ export class JobAdFormDialogComponent {
     skills: new FormControl(this.data?.jobAd?.skills ?? [], [Validators.required]),
   });
 
-  get skills() {
+  get skills(): AbstractControl<string[] | null, string[] | null> | null {
     return this.jobAdForm.get('skills');
   }
 
@@ -64,11 +64,11 @@ export class JobAdFormDialogComponent {
     @Optional() @Inject(DIALOG_DATA) public data: JobAdDialogData) {}
 
 
-  onCancel() {
+  onCancel(): void {
     this.dialogRef.close();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.saveButtonDisabled = true;
     if(this.data.jobAd) {
       this.jobAdsStore.editJobAd(this.jobAdForm.value as JobAd);

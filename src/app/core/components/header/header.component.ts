@@ -13,8 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
-  dialog = inject(MatDialog);
-  router: Router = inject(Router);
+  private dialog = inject(MatDialog);
+  private router: Router = inject(Router);
   isJobsRouteActive$ = this.router.events.pipe(
     filter((e): e is NavigationEnd => e instanceof NavigationEnd),
     map(e => {
@@ -22,7 +22,7 @@ export class HeaderComponent {
       return e.url === jobsRoute || e.urlAfterRedirects === jobsRoute
     })
   );
-  openDialog() {
+  openDialog(): void {
     const data: JobAdDialogData = {
       title: 'Create Job Ad',
     };
