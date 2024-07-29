@@ -1,5 +1,5 @@
 import { DIALOG_DATA } from '@angular/cdk/dialog';
-import { Component, inject, Inject, Optional } from '@angular/core';
+import { Component, inject, Inject, OnInit, Optional } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import { JobAdsStore } from '../../job-ads.store';
   templateUrl: './job-ad-form-dialog.component.html',
   styleUrl: './job-ad-form-dialog.component.scss'
 })
-export class JobAdFormDialogComponent {
+export class JobAdFormDialogComponent implements OnInit{
   jobService: JobService = inject(JobService);
   jobAdsStore: JobAdsStore = inject(JobAdsStore);
 
@@ -43,13 +43,7 @@ export class JobAdFormDialogComponent {
   separatorKeysCodes = [ENTER, COMMA] as const;
   saveButtonDisabled = false;
 
-  jobAdForm = new FormGroup({
-    id: new FormControl(this.data?.jobAd?.id ?? null),
-    title: new FormControl(this.data?.jobAd?.title ?? '', [Validators.required]),
-    description: new FormControl(this.data?.jobAd?.description ?? '', [Validators.required]),
-    status: new FormControl(this.data?.jobAd?.status ?? 'draft'),
-    skills: new FormControl(this.data?.jobAd?.skills ?? [], [Validators.required]),
-  });
+  jobAdForm!: FormGroup;
 
   get skills(): AbstractControl<string[] | null, string[] | null> | null {
     return this.jobAdForm.get('skills');
@@ -62,6 +56,16 @@ export class JobAdFormDialogComponent {
   constructor(
     @Optional() public dialogRef: MatDialogRef<JobAdFormDialogComponent>,
     @Optional() @Inject(DIALOG_DATA) public data: JobAdDialogData) {}
+
+  ngOnInit(): void {
+    this.jobAdForm = new FormGroup({
+      id: new FormControl(this.data?.jobAd?.id ?? null),
+      title: new FormControl(this.data?.jobAd?.title ?? '', [Validators.required]),
+      description: new FormControl(this.data?.jobAd?.description ?? '', [Validators.required]),
+      status: new FormControl(this.data?.jobAd?.status ?? 'draft'),
+      skills: new FormControl(this.data?.jobAd?.skills ?? [], [Validators.required]),
+    });
+  }
 
 
   onCancel(): void {
@@ -120,16 +124,15 @@ export class JobAdFormDialogComponent {
       const skills: string[] | null= this.skills.value;
       if(skills) {
         const index = skills.indexOf(skill);
+
         if (index >= 0) {
           if(skills.includes(skill)){
             this.remove(skill);
-            return;
           }
           skills[index] = value;
 
           this.skills.setValue(skills);
         }
-
       }
     }
   }
