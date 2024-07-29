@@ -125,9 +125,13 @@ export class JobAdFormDialogComponent implements OnInit{
       if(skills) {
         const index = skills.indexOf(skill);
 
+        if(skill === event.value) {
+          return; // return because changed to same value
+        }
         if (index >= 0) {
-          if(skills.includes(skill)){
+          if(skills.includes(value)){
             this.remove(skill);
+            return;
           }
           skills[index] = value;
 
