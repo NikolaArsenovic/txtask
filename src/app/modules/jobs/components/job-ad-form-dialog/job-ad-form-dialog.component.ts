@@ -63,7 +63,7 @@ export class JobAdFormDialogComponent implements OnInit{
       title: new FormControl(this.data?.jobAd?.title ?? '', [Validators.required]),
       description: new FormControl(this.data?.jobAd?.description ?? '', [Validators.required]),
       status: new FormControl(this.data?.jobAd?.status ?? 'draft'),
-      skills: new FormControl(this.data?.jobAd?.skills ?? [], [Validators.required]),
+      skills: new FormControl(this.data?.jobAd?.skills ? [...this.data.jobAd.skills] : [], [Validators.required]),
     });
   }
 
