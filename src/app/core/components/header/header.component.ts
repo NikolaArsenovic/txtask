@@ -17,7 +17,10 @@ export class HeaderComponent {
   router: Router = inject(Router);
   isJobsRouteActive$ = this.router.events.pipe(
     filter((e): e is NavigationEnd => e instanceof NavigationEnd),
-    map(e => e.url === '/jobs')
+    map(e => {
+      const jobsRoute = '/jobs';
+      return e.url === jobsRoute || e.urlAfterRedirects === jobsRoute
+    })
   );
   openDialog() {
     const data: JobAdDialogData = {
